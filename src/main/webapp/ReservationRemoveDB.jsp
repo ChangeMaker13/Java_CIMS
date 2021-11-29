@@ -10,37 +10,35 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>This is Disease add page</h1>
 	<%
 		//변수 세팅하기
 		Connection conn = ConnectionManager.getConn();
 		conn.setAutoCommit(false);
 		
 		String id = (String)session.getAttribute("id");
-		String disease = request.getParameter("disease");
 		String unumber = ClientQuery.getUnumber(conn, id);
 		
-		//insert 쿼리 수행
-		String sql = "INSERT INTO UNDERLYING_DISEASE VALUES(?, ?)";
-
+		//delete 쿼리 수행
+		String sql = "DELETE FROM RESERVATION WHERE unumber = ?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, unumber);
-		ps.setString(2, disease);
 		
-		int result = ps.executeUpdate();
-		if(result != 0)
-			System.out.println("Successfully inserted.");
-		else
-			System.out.println("error occured when inserting disease data.");
-		
+		int count = ps.executeUpdate();
+		if(count == 0) {
+			System.out.println("error occured when deleting data");
+		}
+		else {
+			System.out.println("reservation data deleted");
+		}
+
 		//commit후 close
 		conn.commit();
-		
-		System.out.println("Connection closed");
+
 		conn.close();
 		ps.close();
-
-    	response.sendRedirect("./DiseaseAdd.jsp");
+		System.out.println("Connection closed");
+	
+		response.sendRedirect("./Reservation.jsp");
 	%>
 </body>
 </html>

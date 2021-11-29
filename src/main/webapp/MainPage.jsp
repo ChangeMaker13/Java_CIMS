@@ -11,5 +11,6 @@
 	<h2>Welcome, <%= request.getParameter("name") %></h2>
 	
 	<h2><a href = "./DiseaseAdd.jsp">기저질환 정보 추가/삭제</a></h2>
+	<h2><a href = "./Reservation.jsp">백신접종 예약내역 확인</a></h2>
 </body>
 </html>
