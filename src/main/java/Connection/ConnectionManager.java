@@ -12,7 +12,6 @@ public class ConnectionManager {
 		//드라이버 로딩
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("Success!");			
 		}
 		catch(ClassNotFoundException e) {
 			System.err.println("error = " + e.getMessage());
@@ -26,7 +25,7 @@ public class ConnectionManager {
 			String USER_PASSWD = "oracle";
 			
 			conn = DriverManager.getConnection(URL, USER_UNIVERSITY, USER_PASSWD);
-			System.out.println("Connected.");
+			System.out.println("Connection Connected.");
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 			System.err.println("Cannot get a connection: " + ex.getLocalizedMessage());
