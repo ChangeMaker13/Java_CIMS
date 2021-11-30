@@ -35,35 +35,35 @@ td {
 		ps.close();
 		rs.close();
 		
-		out.println("<h2>가게 방문 기록 확인</h2>");
-		out.println("<h3>검색 결과</h3>");
+		out.println("<h2>확인증 조회</h2>");
+		out.println("<h3>백신 접종 확인증 확인</h3>");
 		
-		sql = "SELECT c.Name, s.Name, v.Visit_time\n"
-				+ "FROM VISIT_LOG v, CLIENT c, SHOP s\n"
-				+ "WHERE v.Unumber = c.Unumber\n"
-				+ "AND v.Snumber = s.Snumber\n"
-				+ "AND c.Unumber ='" + unumber +"'";
-		
+		sql = "SELECT c.Name, f.Cnumber, f.Inject_cnt, f.Inject_date\n"
+				+ "FROM CLIENT c, CONFIRMATION f\n"
+				+ "WHERE c.Unumber = f.Unumber\n"
+				+ "AND c.Unumber = '" + unumber +"'";
 		PreparedStatement stmt = conn.prepareStatement(sql.toString(),ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		rs = stmt.executeQuery(sql);
 		
 		if(!rs.next()) {
-			out.println("<h4>방문 기록이 없습니다.</h4>");
+			out.println("<h4>백신 접종 기록이 없습니다.</h4>");
 		} 
 		else {
 			rs.beforeFirst();
 			
 			out.println("<table border=\"1;\">");
 			out.println("<th>이름</th>");
-			out.println("<th>가게</th>");
-			out.println("<th>방문 시간</th>");
+			out.println("<th>확인증 번호</th>");
+			out.println("<th>접종 횟수</th>");
+			out.println("<th>접종 일자</th>");
 			
 			while(rs.next()) {
 				out.println("<tr>");
 				out.println("<td>"+rs.getString(1)+"</td>");
 				out.println("<td>"+rs.getString(2)+"</td>");
+				out.println("<td>"+rs.getString(3)+"</td>");
 				
-				java.sql.Date date = rs.getDate(3);
+				java.sql.Date date = rs.getDate(4);
 				java.util.Date rDate = new java.util.Date(date.getTime());
 				out.println("<td>"+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(rDate)+"</td>");
 				out.println("</tr>");
@@ -77,6 +77,5 @@ td {
 		System.out.println("Connection closed");
 %>
 <button onClick="history.go(-1);">돌아가기</button>
-
 </body>
 </html>
