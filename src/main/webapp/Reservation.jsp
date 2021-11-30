@@ -59,19 +59,21 @@
 		out.println("<h2>접종예약 확인/수정 페이지</h2>");
 		out.println("<h3>백신 접종 예약 내역</h3>");
 		
+	%>
+		<table class="table">
+		<thread>
+			<tr>
+				<th>예약 번호</th>
+				<th>날짜</th>
+				<th>병원</th>
+				<th>백신</th>
+			</tr>
+		</thread>
+		<tbody>
+	<%	
+		
 		while(rs.next()) {
-		%>
-			<table class="table">
-			<thread>
-				<tr>
-					<th>예약 번호</th>
-					<th>날짜</th>
-					<th>병원</th>
-					<th>백신</th>
-				</tr>
-			</thread>
-			<tbody>
-		<%
+
 			reserved = true;
 			String r_number = rs.getString(1);
 			java.sql.Date date = rs.getDate(2);
@@ -82,7 +84,7 @@
 			
 			out.println("<tr>");
 			out.println("<td>" + r_number + "</td>");
-			out.println("<td>" + new SimpleDateFormat("yyyy-MM-dd").format(rDate) + "</td>");
+			out.println("<td>" + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(rDate) + "</td>");
 			out.println("<td>" + hospital + "</td>");
 			out.println("<td>" + vaccine + "</td>");
 			out.println("</tr>");
@@ -125,6 +127,7 @@
 			
 			if(inject_cnt >= 3) {
 				out.println("<h5>백신 2회 접종을 모두 진행하였습니다.</h5>");
+				out.println("<input type=\"button\" class=\"btn btn-default\" onClick=\"location.href='MainPage.jsp'\" value=\"돌아가기\">");
 			}
 			else {
 	%>

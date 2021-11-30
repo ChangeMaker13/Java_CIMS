@@ -11,6 +11,20 @@
 <title>COVID19 integrated Management System</title>
 </head>
 <body>
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="MainPage.jsp">CIMS</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="./DiseaseAdd.jsp">기저질환</a></li>
+				<li><a href="./Reservation.jsp">예약확인</a></li>
+				<li><a href="./Confirmation.jsp">확인증</a></li>
+				<li><a href="./Visitor.jsp">가게별 방문자</a></li>
+				<li><a href="./VisitLog.jsp">방문기록</a></li>
+			</ul>
+		</div>
+	</nav>
 <%
 		Connection conn = ConnectionManager.getConn();
 		
@@ -18,11 +32,7 @@
 		String shop = request.getParameter("shop");
 		
 		//쿼리 구성하기
-		String sql = "SELECT S.NAME AS SHOP_NAME, COUNT(*) AS VISITOR\n"
-					+ "FROM SHOP S, CLIENT C, VISIT_LOG V\n"
-					+ "WHERE V.SNUMBER = S.SNUMBER AND V.UNUMBER = C.UNUMBER\n"
-					+ "AND S.NAME = '" + shop + "'\n"
-					+ "GROUP BY S.NAME";
+		String sql = "SELECT name, current_visitor FROM SHOP WHERE NAME = '" + shop + "'";
 
 		PreparedStatement stmt = conn.prepareStatement(sql.toString(),ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ResultSet rs = stmt.executeQuery(sql);
