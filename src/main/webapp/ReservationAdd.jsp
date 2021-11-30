@@ -20,7 +20,6 @@
 		String date = request.getParameter("rdate");
 		
 		//예약 가능시간 조회
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
 		java.util.Date d = sdf.parse(date);

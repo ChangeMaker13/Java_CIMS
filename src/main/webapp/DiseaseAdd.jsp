@@ -14,7 +14,7 @@
 		String id = (String)session.getAttribute("id");
 		
 		//현재 기저질환 정보 가져오기
-		String sql = "SELECT Disease, C.Unumber FROM CLIENT C, UNDERLYING_DISEASE U WHERE U.Unumber = C.Unumber AND C.User_id = ? FOR UPDATE WAIT 5";
+		String sql = "SELECT Disease, C.Unumber FROM CLIENT C, UNDERLYING_DISEASE U WHERE U.Unumber = C.Unumber AND C.User_id = ?";
 		
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, id);

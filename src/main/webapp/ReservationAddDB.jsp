@@ -18,7 +18,7 @@
 		Boolean reserved = false;
 		
 		//unumber 구하기
-		String sql = "SELECT unumber FROM CLIENT WHERE User_id = ?";
+		String sql = "SELECT unumber FROM CLIENT WHERE User_id = ? FOR UPDATE";
 		
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, id);
@@ -41,7 +41,7 @@
 		int inject_cnt = 2;
 		
 		//hnumber 구하기
-		sql = "SELECT Hnumber FROM HOSPITAL WHERE Name = ?";
+		sql = "SELECT Hnumber FROM HOSPITAL WHERE Name = ? FOR UPDATE";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, hname);
 		
@@ -59,7 +59,7 @@
 					+ "AND V.Expiration_date <= ALL(SELECT Expiration_date FROM VACCINE NV "
 					+ "                            WHERE NV.Hnumber = ? "
 					+ "                            AND NOT EXISTS (SELECT * FROM RESERVATION NR WHERE NR.Vnumber = NV.Vnumber)) "
-					+ "AND NOT EXISTS (SELECT * FROM RESERVATION R WHERE R.Vnumber = V.Vnumber)";
+					+ "AND NOT EXISTS (SELECT * FROM RESERVATION R WHERE R.Vnumber = V.Vnumber) FOR UPDATE";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, hnumber); 
 		ps.setString(2, hnumber); 
