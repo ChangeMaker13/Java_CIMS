@@ -18,7 +18,7 @@
 		Boolean reserved = false;
 		
 		//unumber 구하기
-		String sql = "SELECT unumber FROM CLIENT WHERE User_id = ? FOR UPDATE";
+		String sql = "SELECT unumber FROM CLIENT WHERE User_id = ?";
 		
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, id);
@@ -41,7 +41,7 @@
 		int inject_cnt = 2;
 		
 		//hnumber 구하기
-		sql = "SELECT Hnumber FROM HOSPITAL WHERE Name = ? FOR UPDATE";
+		sql = "SELECT Hnumber FROM HOSPITAL WHERE Name = ?";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, hname);
 		

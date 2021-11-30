@@ -6,10 +6,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+<meta name="viewport" content="width-device-width", initial-scale="1">
+<link rel="stylesheet" href="css/bootstrap.css">
+<title>COVID19 integrated Management System</title>
 </head>
 <body>
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="MainPage.jsp">CIMS</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="./DiseaseAdd.jsp">기저질환</a></li>
+				<li><a href="./Reservation.jsp">예약확인</a></li>
+				<li><a href="./Confirmation.jsp">확인증</a></li>
+				<li><a href="./Visitor.jsp">가게별 방문자</a></li>
+				<li><a href="./VisitLog.jsp">방문기록</a></li>
+			</ul>
+		</div>
+	</nav>
 	<%
 		Connection conn = ConnectionManager.getConn();
 		String id = (String)session.getAttribute("id");
@@ -40,9 +56,22 @@
 		rs = stmt.executeQuery(sql);
 		
 		//예약 내역 표시
-		out.println("<h1>접종예약 확인/수정 페이지</h1>");
-		out.println("<h2>백신 접종 예약 내역</h2>");
+		out.println("<h2>접종예약 확인/수정 페이지</h2>");
+		out.println("<h3>백신 접종 예약 내역</h3>");
+		
 		while(rs.next()) {
+		%>
+			<table class="table">
+			<thread>
+				<tr>
+					<th>예약 번호</th>
+					<th>날짜</th>
+					<th>병원</th>
+					<th>백신</th>
+				</tr>
+			</thread>
+			<tbody>
+		<%
 			reserved = true;
 			String r_number = rs.getString(1);
 			java.sql.Date date = rs.getDate(2);
@@ -50,19 +79,25 @@
 			String vaccine = rs.getString(4);
 			
 			java.util.Date rDate = new java.util.Date(date.getTime());
-			out.println("<h3>Reservation number : " + r_number + "</h3>");
-			out.println("<h3>Date : " + new SimpleDateFormat("yyyy-MM-dd").format(rDate) + "</h3>");
-			out.println("<h3>Hospital : " + hospital + "</h3>");
-			out.println("<h3>Vaccine : " + vaccine + "</h3>");
+			
+			out.println("<tr>");
+			out.println("<td>" + r_number + "</td>");
+			out.println("<td>" + new SimpleDateFormat("yyyy-MM-dd").format(rDate) + "</td>");
+			out.println("<td>" + hospital + "</td>");
+			out.println("<td>" + vaccine + "</td>");
+			out.println("</tr>");
 		}
+	%>
+	</tbody>
+	</table>
+	<%
 		
 		if(reserved){
 		%>
-			<button type="button" onclick="location.href='ReservationRemoveDB.jsp'">예약 취소</button>
+			<input type="button" class="btn btn-default" onClick="location.href='MainPage.jsp'" value="돌아가기">
+			<input type="button" class="btn btn-default" onclick="location.href='ReservationRemoveDB.jsp'" value="예약 취소">
 		<%
 		}
-		
-		out.println("<h2>------------------------------------</h2>");
 		
 		if(!reserved){
 			//접종 횟수 구하기
@@ -89,20 +124,28 @@
 			rs.close();
 			
 			if(inject_cnt >= 3) {
-				out.println("<h4>백신 2회 접종을 모두 진행하였습니다.</h4>");
-				%>
-				<button onClick="history.go(-1);">돌아가기</button>
-				<%
+				out.println("<h5>백신 2회 접종을 모두 진행하였습니다.</h5>");
 			}
 			else {
-				out.println("예약하기");
 	%>
-				<form action="./ReservationAdd.jsp" method = "post">
-					<div>Hospital Name : <input type="text" id="hname" name="hname" size="15"></div>
-					<div>Date : <input type = "date" min = "2021-12-01" id = "rdate" name = "rdate"></div>
-					<button type = "reset">다시입력</button>
-					<button type = "submit">시간선택</button>
-				</form>
+				<div class="container">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4">
+					<div class="jumbotron" style="text-align:center; padding-top: 20px;">
+						<form action="./ReservationAdd.jsp" method = "post">
+							<h3 style="text-align: center;">예약 추가</h3>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Hospital name" id="hname" name="hname" size="15">
+							</div>
+							<div class="form-group">
+								<input type = "date" class="form-control" placeholder="2021-12-01" min = "2021-12-01" id = "rdate" name = "rdate">
+							</div>
+							<input type="button" class="btn btn-default" onClick="location.href='MainPage.jsp'" value="돌아가기">
+							<input type="reset" class="btn btn-default" value="리셋">
+							<input type="submit" class="btn btn-default" value="시간선택">
+						</form>
+				</div>
+			</div>
 	<%
 			}
 		}
@@ -110,6 +153,6 @@
 		conn.close();
 		System.out.println("Connection closed");
 	%>
-	<input type="button" onclick="location.href='./MainPage.jsp'" value = "메인페이지"/>
+
 </body>
 </html>

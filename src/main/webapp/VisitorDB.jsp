@@ -5,13 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-<style>
-td {
-	text-align: center;
-}
-</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+<meta name="viewport" content="width-device-width", initial-scale="1">
+<link rel="stylesheet" href="css/bootstrap.css">
+<title>COVID19 integrated Management System</title>
 </head>
 <body>
 <%
@@ -43,10 +40,16 @@ td {
 		}
 		else {
 			rs.beforeFirst();
-			
-			out.println("<table border=\"1;\">");
-			out.println("<th>가게명</th>");
-			out.println("<th>방문자 수</th>");
+		%>
+			<table class="table">
+			<thread>
+				<tr>
+					<th>가게명</th>
+					<th>방문자 수</th>
+				</tr>
+			</thread>
+		<tbody>
+		<%
 			
 			while(rs.next()) {
 				out.println("<tr>");
@@ -54,7 +57,7 @@ td {
 				out.println("<td>"+rs.getInt(2)+"</td>");
 				out.println("</tr>");
 			}
-
+			out.println("</tbody>");
 			out.println("</table>");
 
 			rs.close();
@@ -62,7 +65,6 @@ td {
 			System.out.println("Connection closed");
 		}
 %>
-<button onClick="history.go(-1);">돌아가기</button>
-<button onclick="location.href='MainPage.jsp'">메인메뉴</button >
+<input type="button" class="btn btn-default" onClick="history.go(-1);" value="돌아가기">
 </body>
 </html>

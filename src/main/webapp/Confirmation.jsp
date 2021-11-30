@@ -6,15 +6,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-<style>
-td {
-	text-align: center;
-}
-</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+<meta name="viewport" content="width-device-width", initial-scale="1">
+<link rel="stylesheet" href="css/bootstrap.css">
+<title>COVID19 integrated Management System</title>
 </head>
 <body>
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="MainPage.jsp">CIMS</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="./DiseaseAdd.jsp">기저질환</a></li>
+				<li><a href="./Reservation.jsp">예약확인</a></li>
+				<li><a href="./Confirmation.jsp">확인증</a></li>
+				<li><a href="./Visitor.jsp">가게별 방문자</a></li>
+				<li><a href="./VisitLog.jsp">방문기록</a></li>
+			</ul>
+		</div>
+	</nav>
 <%
 		Connection conn = ConnectionManager.getConn();
 		String id = (String)session.getAttribute("id");
@@ -51,12 +62,18 @@ td {
 		else {
 			rs.beforeFirst();
 			
-			out.println("<table border=\"1;\">");
-			out.println("<th>이름</th>");
-			out.println("<th>확인증 번호</th>");
-			out.println("<th>접종 횟수</th>");
-			out.println("<th>접종 일자</th>");
-			
+	%>		
+			<table class="table">
+			<thread>
+				<tr>
+					<th>이름</th>
+					<th>확인증 번호</th>
+					<th>접종 횟수</th>
+					<th>접종 일자</th>
+				</tr>
+			</thread>
+			<tbody>
+	<%		
 			while(rs.next()) {
 				out.println("<tr>");
 				out.println("<td>"+rs.getString(1)+"</td>");
@@ -68,6 +85,7 @@ td {
 				out.println("<td>"+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(rDate)+"</td>");
 				out.println("</tr>");
 			}
+			out.println("</tbody>");
 			out.println("</table>");
 		}
 		
@@ -76,6 +94,6 @@ td {
 		conn.close();
 		System.out.println("Connection closed");
 %>
-<button onClick="history.go(-1);">돌아가기</button>
+<input type="button" class="btn btn-default" onClick="location.href='MainPage.jsp'" value="돌아가기">
 </body>
 </html>
