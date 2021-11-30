@@ -23,6 +23,6 @@
 	<h2><a href = "./Visitor.jsp">가게별 방문자 확인</a></h2>
 	<h2><a href = "./VisitLog.jsp">가게 방문 기록 확인</a></h2>
 	
-	<input type="button" onclick="location.href='./LoginPage.jsp'" value = "로그아웃"/>
+	<input type="button" onclick="location.href='./index.jsp'" value = "로그아웃"/>
 </body>
 </html>

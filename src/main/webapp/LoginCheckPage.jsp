@@ -36,7 +36,7 @@
 			%>
 			<script>
 			  setTimeout(function() {
-			      document.location = "./LoginPage.jsp";
+			      document.location = "./index.jsp";
 			  }, 3000);
 			</script>
 			<%
