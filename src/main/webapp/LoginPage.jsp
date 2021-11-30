@@ -12,7 +12,7 @@
 	<h2>Login page</h2>
 	<form action="./LoginCheckPage.jsp" method = "post">
 		<div>ID : <input type="text" id="id" name="id" size="15"></div>
-		<div>Password : <input type="text" id="password" name="password" size="15"></div>
+		<div>Password : <input type="password" id="password" name="password" size="15"></div>
 		<button type = "reset">Reset</button>
 		<button type = "submit">Submit</button>
 	</form>
