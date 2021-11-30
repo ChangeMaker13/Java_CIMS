@@ -110,6 +110,6 @@
 		conn.close();
 		System.out.println("Connection closed");
 	%>
-
+	<input type="button" onclick="location.href='./MainPage.jsp'" value = "메인페이지"/>
 </body>
 </html>

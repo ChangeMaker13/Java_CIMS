@@ -49,5 +49,6 @@
 		<button type = "reset">Reset</button>
 		<button type = "submit">Submit</button>
 	</form>
+	<input type="button" onclick="location.href='./MainPage.jsp'" value = "메인페이지"/>
 </body>
 </html>

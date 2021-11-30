@@ -49,7 +49,7 @@
 		
 			conn.close();
 			System.out.println("Connection closed");
-	    	response.sendRedirect("./MainPage.jsp?name="+name);
+	    	response.sendRedirect("./MainPage.jsp");
 		}
 
 	%>

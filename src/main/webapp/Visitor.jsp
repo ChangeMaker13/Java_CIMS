@@ -14,5 +14,6 @@
 		<button type = "reset">다시입력</button>
 		<button type = "submit">검색하기</button>
 	</form>
+	<input type="button" onclick="location.href='./MainPage.jsp'" value = "메인페이지"/>
 </body>
 </html>
